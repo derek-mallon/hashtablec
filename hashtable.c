@@ -37,7 +37,7 @@ size_t prime(size_t range){
     }
     return 2;
 }
-Hashtable Hastable_create(size_t min_keys){
+Hashtable Hashtable_create(size_t min_keys){
     Hashtable hashtable;
     hashtable.prime = prime(min_keys);
     size_t i;
@@ -74,6 +74,11 @@ void Hashtable_insert_pair(Hashtable* hashtable,uint8_t* key,size_t key_size,voi
 void HashtableString_insert_pair(Hashtable* hashtable,char* key,void* obj){
     Pair* pair = malloc(sizeof(Pair));
     size_t key_size = 0;
+    char* ptr = key;
+    while(*ptr){
+        key_size++;
+        ptr++;
+    }
     pair->key = (uint8_t*)key;
     pair->key_size = key_size;
     pair->obj = obj;
@@ -98,14 +103,17 @@ void* Hashtable_lookup_obj(Hashtable* hashtable,uint8_t* key,size_t key_size){
             if(found){
                 return check_pair->obj;
             }
+            look_up = look_up->next;
         }
     }
     return NULL;
 }
 void* HashtableString_lookup_obj(Hashtable* hashtable,char* key){
     size_t key_size = 0;
-    while(*key++){
+    char* ptr = key;
+    while(*ptr){
         key_size++;
+        ptr++;
     }
     size_t hash = find_hash((uint8_t*)key,key_size,hashtable->prime);
     int i;
