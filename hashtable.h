@@ -11,4 +11,5 @@ void Hashtable_insert_pair(Hashtable* hashtable,uint8_t* key,size_t key_size,voi
 void* Hashtable_lookup_obj(Hashtable* hashtable,uint8_t* key,size_t key_size);
 void HashtableString_insert_pair(Hashtable* hashtable,char* key,void* obj);
 void* HashtableString_lookup_obj(Hashtable* hashtable,char* key);
+void Hashtable_destroy(Hashtable* hashtable);
 #endif

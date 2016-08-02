@@ -136,6 +136,13 @@ void* HashtableString_lookup_obj(Hashtable* hashtable,char* key){
     }
     return NULL;
 }
+void Hashtable_destroy(Hashtable* hashtable){
+    int i;
+    for(i=0;i<hashtable->prime;i++){
+        LinkedList_destroy(&hashtable->chains[i]);
+    }
+    free(hashtable->chains);
+}
 size_t hash_int(size_t key,size_t prime){
     return key % prime;
 }
